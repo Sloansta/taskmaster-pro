@@ -97,7 +97,7 @@ $(".list-group").on("blur", "input[type= 'text']", function() {
     tasks[status][index].date = date;
 
     var taskSpan = $("<span>")
-      .addClass("badge bage-primary badge-pill")
+      .addClass("badge badge-primary badge-pill")
       .text(date);
     
     
