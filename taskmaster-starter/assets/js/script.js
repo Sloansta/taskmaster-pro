@@ -45,6 +45,92 @@ var saveTasks = function() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
+// catches click of button 
+$(".list-group").on('click', "p", function() {
+  var text = $(this)
+  .text()
+  .trim();
+
+  var textInput = $("<textarea>")
+  .addClass("form-control")
+  .val(text);
+
+  $(this).replaceWith(textInput);
+  textInput.trigger("focus");
+  console.log(text);
+});
+
+$(".list-group").on("click", "span", function() {
+ // get current text
+  var date = $(this)
+    .text()
+    .trim();
+
+  // create new input element
+  var dateInput = $("<input>")
+    .attr("type", "text")
+    .addClass("form-control")
+    .val(date);
+
+  
+  // swap out elements
+  $(this).replaceWith(dateInput);
+
+  // automatically focus on new element
+  dateInput.trigger("focus");
+});
+
+$(".list-group").on("blur", "input[type= 'text']", function() {
+     var date = $(this)
+      .val()
+      .trim();
+
+    var status  = $(this)
+      .closest(".list-group")
+      .attr("id")
+      .replace("list-", "");
+    
+    var index = $(this)
+      .closest(".list-group-item")
+      .index();
+    
+    tasks[status][index].date = date;
+
+    var taskSpan = $("<span>")
+      .addClass("badge bage-primary badge-pill")
+      .text(date);
+    
+    
+
+    $(this).replaceWith(taskSpan);
+});
+
+// catches when the user clicks off the button 
+$(".list-group").on("blur", "textarea", function() {
+  // get the textarea's current value/text
+  var text = $(this)
+    .val()
+    .trim();
+
+  // get the parent ul's id attribute
+  var status = $(this)
+    .closest(".list-group")
+    .attr("id")
+    .replace("list-", "");
+
+  var index = $(this)
+    .closest(".list-group-item")
+    .index();
+
+  tasks[status][index].text = text;
+  saveTasks();
+
+  var taskP = $("<p>")
+    .addClass("m-1")
+    .text(text);
+  
+  $(this).replaceWith(taskP);
+});
 
 
 
