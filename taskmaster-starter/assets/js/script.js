@@ -80,7 +80,7 @@ $(".list-group").on("click", "span", function() {
   dateInput.trigger("focus");
 });
 
-$(".list-group").on("blur", "input[type= 'text']", function() {
+$(".list-group").on("blur", "input[type='text']", function() {
      var date = $(this)
       .val()
       .trim();
@@ -94,7 +94,8 @@ $(".list-group").on("blur", "input[type= 'text']", function() {
       .closest(".list-group-item")
       .index();
     
-    tasks[status][index].date = date;
+    tasks[status][index] = date;
+    saveTasks();
 
     var taskSpan = $("<span>")
       .addClass("badge badge-primary badge-pill")
@@ -122,7 +123,7 @@ $(".list-group").on("blur", "textarea", function() {
     .closest(".list-group-item")
     .index();
 
-  tasks[status][index].text = text;
+  tasks[status][index] = text;
   saveTasks();
 
   var taskP = $("<p>")
