@@ -67,20 +67,27 @@ $(".list-group").on("click", "span", function() {
     .trim();
 
   // create new input element
-  var dateInput = $("<input>")
-    .attr("type", "text")
-    .addClass("form-control")
-    .val(date);
+  var dateInput = $("<input>").attr("type", "text").addClass("form-control").val(date);
+
 
   
   // swap out elements
   $(this).replaceWith(dateInput);
 
+  dateInput.datepicker({
+    minDate: 1,
+
+    onClose: function() {
+      // when calendar is closed, force a "change" event on the 'dateInput'
+      $(this).trigger("change");
+    }
+  });
+
   // automatically focus on new element
   dateInput.trigger("focus");
 });
 
-$(".list-group").on("blur", "input[type='text']", function() {
+$(".list-group").on("change", "input[type='text']", function() {
      var date = $(this)
       .val()
       .trim();
@@ -221,6 +228,11 @@ $(".card .list-group").sortable({
     console.log($(this).children())
   }
 
+});
+
+// datepicker 
+$("#modalDueDate").datepicker({
+  minDate: 1
 });
 
 $("#trash").droppable({
