@@ -13,6 +13,8 @@ var createTask = function(taskText, taskDate, taskList) {
   // append span and p element to parent li
   taskLi.append(taskSpan, taskP);
 
+  auditTask(taskLi);
+
 
   // append to ul list on the page
   $("#list-" + taskList).append(taskLi);
@@ -234,6 +236,16 @@ $(".card .list-group").sortable({
 $("#modalDueDate").datepicker({
   minDate: 1
 });
+
+var auditTask = function(taskEl) {
+  var date = $(taskEl).find("span").text().trim();
+
+  console.log(date);
+
+  var time = moment(date, "L").set("hour", 17);
+
+  console.log(time);
+};
 
 $("#trash").droppable({
   accept: ".card .list-group-item",
