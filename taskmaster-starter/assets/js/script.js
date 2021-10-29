@@ -114,6 +114,8 @@ $(".list-group").on("change", "input[type='text']", function() {
 
     $(this).replaceWith(taskSpan);
 
+    auditTask($(taskSpan).closest(".list-group-item"));
+
 });
 
 // catches when the user clicks off the button 
@@ -243,6 +245,16 @@ var auditTask = function(taskEl) {
   console.log(date);
 
   var time = moment(date, "L").set("hour", 17);
+
+  $(taskEl).removeClass("list-group-item-warning list-group-item-danger list-group-item-success");
+
+  // checking dates with momentjs
+  if(moment().isAfter(time))
+    $(taskEl).addClass("list-group-item-danger");
+  else if(Math.abs(moment().diff(time, "days")) <= 2)
+    $(taskEl).addClass("list-group-item-warning");
+  else if(Math.abs(moment().diff(time, "days")) >= 5)
+    $(taskEl).addClass("list-group-item-success");
 
   console.log(time);
 };
